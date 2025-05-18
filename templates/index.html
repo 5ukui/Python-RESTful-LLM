@@ -106,7 +106,8 @@
   </style>
 </head>
 <body>
-  <div class="chat-wrapper">
+  <div class="chat-wrapper" style="">
+    <img src="/static/logo.png" alt="logo" width="300px" style="display: block; margin: 0 auto; padding-bottom: 20px;" />
     <div class="response-box" id="responseBox">
       <div class="response-text" id="responseText">
         <!-- Responses appear here -->
@@ -134,11 +135,38 @@
   </div>
 
   <script>
-    function sendPrompt() {
+    async function sendPrompt() {
       const input = document.getElementById("userInput");
-      const responseText = document.getElementById("responseText");
-      const text = input.value.trim();
-      if (!text) return;
+      const responseBox = document.getElementById("responseText");
+      const userMessage = input.value.trim();
+
+      if (!userMessage) return;
+
+      try {
+        // Send POST request to FastAPI backend
+        const res = await fetch("/chat/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ message: userMessage })
+        });
+
+        const data = await res.json();
+
+        if (data.response) {
+          responseBox.textContent = `AI: ${data.response}`;
+        } else if (data.error) {
+          responseBox.textContent = `Error: ${data.error}`;
+        } else {
+          responseBox.textContent = "Unexpected response from server.";
+        }
+
+      } catch (err) {
+        responseBox.textContent = "AI: Error contacting the server.";
+        console.error(err);
+      }
+
       input.value = "";
     }
   </script>
