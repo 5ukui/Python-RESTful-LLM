@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+.Python
+
+# Virtual environment
+venv/
+.env/
+.venv/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Pydantic cache
+*.mypy_cache/
+*.pytest_cache/
+
+# Logs and coverage
+*.log
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+
+# Testing & builds
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Environment variables / secrets
+.env
+*.env
+
+# FastAPI-specific
+instance/
+*.sqlite3
+*.db
+
+# Docker
+*.pid
+docker-compose.override.yml
